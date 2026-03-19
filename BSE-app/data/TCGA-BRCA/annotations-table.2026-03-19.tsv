@@ -1,0 +1,11 @@
+UUID	Case ID	Entity Type	Entity ID	Category	Classification	Created Datetime
+bf753205-b2d5-4aa8-8ccd-789397e9eb7d	TCGA-A2-A3XS	aggregated_somatic_mutation	5e28c2d1-30ea-451f-9860-7d502c7460b7	General	Redaction	2022-02-28T09:50:38.036246-06:00
+6eca3e14-eb93-417c-b991-dbb4081511a4	TCGA-GM-A3XN	aliquot	TCGA-GM-A3XN-01A-12D-A22X-09	General	Notification	2022-08-08T12:41:10.703255-05:00
+c04cff9f-4274-4050-a150-9888d39a152f	TCGA-AR-A0TQ	aggregated_somatic_mutation	a1b6889f-14a8-4539-8649-905d6dd377d0	General	Notification	2022-02-28T15:20:47.431372-06:00
+708ea230-6487-56a0-a5d7-326a452d845e	TCGA-AQ-A04L	aliquot	TCGA-AQ-A04L-10A-01D-A10L-01	Item flagged DNU	CenterNotification	2015-09-28T00:00:00
+0bbd1713-1cb8-4393-9eef-48a66be3d03f	TCGA-3C-AALJ	annotated_somatic_mutation	06c9bd23-c8e8-4ca0-a957-0811c00211b3	General	Notification	2022-02-28T03:12:16.111548-06:00
+70d62bbd-dffd-5c85-b4a3-c2bb0088e5cd	TCGA-BH-A0HN	aliquot	TCGA-BH-A0HN-01A-11R-A10V-13	General	Observation	2013-01-15T00:00:00
+c0cef5b1-16e4-4cbd-aabe-567b9a876a4c	TCGA-A7-A13G	aggregated_somatic_mutation	d5833f1f-4f81-4369-b5fe-8c279b6ceaa5	General	Notification	2022-02-28T15:21:34.508713-06:00
+c0e0c28f-5d5e-4431-8b1c-66e6fcf7fc27	TCGA-D8-A1XV	aggregated_somatic_mutation	19ac4041-371c-438c-9ce4-76bdfa705e66	General	Notification	2022-02-28T15:25:02.004911-06:00
+c0e1ee96-8836-4afc-84e0-ecd8d6148ec9	TCGA-LQ-A4E4	aggregated_somatic_mutation	3630243c-f500-4339-b080-25abe608688b	General	Redaction	2022-02-28T09:50:38.036246-06:00
+752e1475-9c8d-5357-9b10-28bc17a4ace9	TCGA-BH-A5J0	aliquot	TCGA-BH-A5J0-10A-01D-A27O-01	Item flagged DNU	CenterNotification	2015-09-28T00:00:00

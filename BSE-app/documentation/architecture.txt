@@ -1,0 +1,110 @@
+Clinical trails recruit broad patient populations and report avg outcomes and biomarker analysis done post facto.
+
+primary user persona: clinical scientist, trial sponsor (2nd and 3rd phase), biostatisticians (does analytics work for clinical trials)
+
+Biomarker Stratification Engine
+
+Problem: 40% trials fail in phase 3 due to wrong patient subpopulation being enrolled because most trials stratify populations into trial arms on pre-specified markers only.
+->
+there is no prospective scan in the broader biomarker space
+->
+BSE helps discover biomarkers that should be in the stratification plan but are not with enough lead time to amend trial protocol.
+
+
+
+Feature 1: Broad Biomarker Ingestion and Profiling
+Upload a patient dataset with complete biomarker landscape. The system profiles every marker and separates them into "protocol specified" and "unexamined"
+
+Feature 2: Biomarker Discovery Engine
+Runs unsupervised clustering on the biomarker space to find patient subpopulations that were not pre-specified. Determines which markers each discovered cluster. Cross references discovered clusters against treatment response to flag the ones with significantly different outcomes.
+
+Feature 3: Constellation View with Discovery Overlay
+Interactive visualization where each patient (with their biomarker landscape) is a node and edges are prespecified biomarkers and discovered biomarkers.
+
+Feature 4: PMC Grounded LLM Layer
+For each discovered cluster, LLM uses the defining biomarker signature to:
+a. Search PubMed Central for published evidence linking that specific biomarker combination to treatment response.
+b. Clinical Summary to explain the hypothesis to business
+
+Feature 5: p-value calculation for discovery cluster
+OR
+Regulatory Layer for 21 CFR Part 11
+
+
+what if there is a recursive agent that kept generating python code to do
+data analysis on the dataset checking if dataset is sparse or what is 
+useful and what is scientifically not useful -- maybe it can do rag and pubmed
+when in doubt
+we can test this on any biomedical dataset
+and then finally return the complete analysis
+
+what if revolutionized the way to gather and enter all this clinical data
+for more personas
+instead of just uploading CSV dataset inputs
+
+
+
+
+CORE TASKS
+
+1. Ingestion and data science (K-means, clustering, UMAP, DBSCAN)
+2. ⁠LLM and literature integration with Pubmed to feed the clustering details from the above task to the LLM and run a PubMed API
+3. ⁠Frontend dashboard
+
+
+
+
+DATA
+
+TCGA-BRCA stands for The Cancer Genome Atlas Breast Invasive Carcinoma. 
+It is a comprehensive, multi-platform dataset containing molecular and clinical data from over 1,000 breast cancer patients. 
+
+As part of the broader The Cancer Genome Atlas (TCGA) program, its goal is to map the genomic changes in breast cancer to help researchers understand the disease's biology and develop better treatments.
+
+The files are split into two main categories: Biospecimen (physical samples) and Clinical (patient history).
+
+Here is a breakdown of what each file typically contains:
+
+1. Biospecimen Data
+These files track the "genealogy" of the biological sample from the patient to the lab.
+
+sample.tsv: The most critical file here. it identifies if a sample is Tumor (Primary or Metastatic) or Normal (Solid Tissue or Blood).
+slide.tsv: Links the physical tissue samples to the high-resolution diagnostic or frozen section imaging slides.
+portion.tsv, analyte.tsv, aliquot.tsv: These describe the technical processing steps. An aliquot is the final "unit" of DNA/RNA used for sequencing.
+
+2. Clinical Data
+These files provide the medical context for the genomic data.
+
+clinical.tsv: The primary file. It contains core patient data like age at diagnosis, gender, vital status (alive/dead), and days to death or last follow-up.
+pathology_detail.tsv: Contains technical medical details like Tumor Stage (TNM system), histologic grade, and specific breast cancer markers (e.g., ER, PR, and HER2 status).
+follow_up.tsv: Tracks the patient over time, documenting any new tumor events or subsequent treatments.
+exposure.tsv / family_history.tsv: Details on environmental risk factors (like smoking history) and whether the patient has a documented family history of cancer.
+
+3. Annotations Table
+
+annotations-table...tsv: This is a quality control file. It lists any known issues with specific samples (e.g., "sample contaminated" or "patient withdrew consent"). Always check this to see if you should exclude certain samples from your analysis.
+
+How to use them together
+To analyze this data, you typically use a unique identifier called the Case ID (e.g., TCGA-A8-A07S) to merge these tables. For example, you would link the survival data in clinical.tsv to the tumor type in sample.tsv to see which subtypes have better outcomes.
+
+
+follow_up.tsv is your most valuable file — and it has two distinct layers inside it. The follow_ups.* columns give you longitudinal disease response, recurrence timing, and ECOG performance status. But buried inside it are molecular_tests.* columns — gene symbols, test results, variant types. This is the actual molecular biomarker landscape. These are not pre-specified trial markers, they're mutation-level data: PIK3CA, TP53, BRCA1 status per patient. This is exactly what BSE's discovery engine should be clustering on.
+
+pathology_detail.tsv has the tumor biology features that almost never appear in trial protocols: tumor-infiltrating lymphocytes (tumor_infiltrating_lymphocytes), vascular invasion (vascular_invasion_present), necrosis percentage (necrosis_percent), perineural invasion. These are continuous histological biomarkers — strong candidates for discovering subpopulations that trials miss.
+
+clinical.tsv gives you staging and demographics. The treatments.* block already in there gives you treatment_outcome and therapeutic_agents — so you can stratify outcome by drug.
+
+sample.tsv is mostly for QC — tissue type and preservation method are batch effect covariates you should account for, not discovery targets.
+
+
+
+
+
+LINKS to explore:
+
+
+Synthetic patient data:
+https://synthetichealth.github.io/synthea/#technology-landing
+
+Multi-modal Data:
+https://arxiv.org/abs/2406.06393
